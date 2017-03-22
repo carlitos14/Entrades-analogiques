@@ -1,6 +1,6 @@
 /*******************************************************************************
 **                                                                            **
-**                           TITOL: R4 - P3                                   **
+**                           TITOL: R5 - P1                                   **
 **                                                                            **
 **                                                                            **
 **  NOM: CARLOS RODRIGUEZ                                   DATA: 22/03/2017  **
@@ -9,10 +9,14 @@
 
 //*********************************VARIABLES************************************
 const int xiulet = 5;       
-const int pot0 = A0;         
-const int pot1 = A1;         
-int valPot0;               
-int valPot1;
+const int ldr0 = A0; 
+const int ldr1 = A1;
+const int ldr2 = A2;
+        
+int valLdr0;
+int valLdr1;
+int valLdr2;
+int freq;
 //***********************************SETUP**************************************
 void setup()
 { 
@@ -21,10 +25,15 @@ void setup()
 //************************************LOOP**************************************
 void loop()
 {
-  valPot0 = analogRead(pot0);       
-  valPot1 = analogRead(pot1);   
+  valLdr0 = analogRead(ldr0);
+  valLdr1 = analogRead(ldr1);
+  valLdr2 = analogRead(ldr2);
 
-  tone(xiulet, valPot1, valPot0);  
-  delay(2*valPot0);  
+  freq = min(valLdr0, valLdr1);
+  freq = min(valLdr2, freq);
+  freq = map(freq, 0, 1023, 2000, 0);
+
+  tone(xiulet, freq, 100); 
+  delay(100+100);
 }
 //**********************************FUNCIONS************************************
